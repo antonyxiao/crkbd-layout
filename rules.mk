@@ -1,4 +1,5 @@
-BOOTLOADER = atmel-dfu
-OLED_ENABLE  = yes
-UNICODE_ENABLE = yes
-COMBO_ENABLE = yes
+MOUSEKEY_ENABLE = no     # Mouse keys
+LTO_ENABLE      = yes
+DYNAMIC_MACRO_ENABLE = yes
+TERMINAL_ENABLE = yes
+
