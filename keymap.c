@@ -28,14 +28,19 @@ enum crkbd_layers {
     _QWERTY,
     _LOWER,
     _RAISE,
+    _MOUSE,
     _FUNCT
 };
 
-enum custum_keycodes {
+enum custom_keycodes {
     VIM_WRAP_PRN = SAFE_RANGE,
     VIM_W,
     VIM_WQ,
-    AUTO_PRN
+    AUTO_PRN,
+    SELECT,
+    FROM,
+    JEA_USER,
+    JEA_PASS
     /* TMUX_L, */
     /* TMUX_R */
 };
@@ -58,11 +63,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, C(KC_A), C(KC_S), C(KC_C), C(KC_V), KC_PSCREEN,                   TERM_ON, KC_HOME,   KC_UP,  KC_END, C(KC_B),  KC_DEL,
+      KC_LCTL, C(KC_A), C(KC_S), C(KC_C), C(KC_V), TG(_MOUSE),           KC_KB_VOLUME_UP, KC_HOME,   KC_UP,  KC_END, DM_REC1,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_LSFT ,G(KC_LEFT),C(KC_Y),C(KC_Z),G(KC_RIGHT),C(KC_X),                   TERM_OFF, KC_LEFT, KC_DOWN,KC_RIGHT, DM_REC1, DM_RSTP,
+     KC_LSFT ,G(KC_LEFT),C(KC_Y),C(KC_Z),G(KC_RIGHT),KC_PSCR,          KC_KB_VOLUME_DOWN, KC_LEFT, KC_DOWN,KC_RIGHT, DM_REC2, DM_RSTP,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            RESET, _______,  KC_SPC,  RSFT_T(KC_ENT),MO(_FUNCT),KC_RALT
+                                         QK_BOOT, _______,  KC_SPC,  RSFT_T(KC_ENT),MO(_FUNCT),KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -70,11 +75,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX,  KC_EQL, KC_LPRN, KC_LCBR, KC_LABK,                      KC_RABK, KC_RCBR, KC_RPRN, DM_PLY1, XXXXXXX,KC_GRV,
+      KC_LCTL, XXXXXXX,  KC_EQL, KC_LPRN, KC_LCBR, KC_LABK,                      KC_RABK, KC_RCBR, KC_RPRN, DM_PLY1, XXXXXXX, KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_TILD, XXXXXXX, KC_MINS, KC_BSLS, KC_LBRC,                      KC_RBRC, KC_UNDS, KC_PLUS, XXXXXXX, KC_BSLS, KC_TILD,
+      KC_LSFT, KC_TILD, XXXXXXX, KC_MINS, KC_BSLS, KC_LBRC,                      KC_RBRC, KC_UNDS, KC_PLUS, DM_PLY2, KC_BSLS, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,MO(_FUNCT),LSFT_T(KC_SPC),KC_ENT, _______, KC_RALT
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_MOUSE] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, XXXXXXX,                      KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          XXXXXXX, TG(_MOUSE), XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -82,13 +99,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_F11,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,  KC_F9,  KC_F10,  KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX,   VIM_W,AUTO_PRN, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,VIM_WRAP_PRN,VIM_WQ, XXXXXXX, XXXXXXX,
+      KC_CAPS, XXXXXXX,   VIM_W,AUTO_PRN,  SELECT, XXXXXXX,                      XXXXXXX,  FROM,VIM_WRAP_PRN,VIM_WQ, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,JEA_USER, XXXXXXX,                      XXXXXXX, JEA_PASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, XXXXXXX
+                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______,  EE_CLR
                                       //`--------------------------'  `--------------------------'
-  )
+  ) 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -122,6 +139,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 tap_code(KC_LEFT);
                 break;
 
+            case SELECT: 
+                SEND_STRING("SELECT ");
+                break;
+ 
+            case FROM: 
+                SEND_STRING("FROM ");
+                break;
+            
+            case JEA_USER:
+                SEND_STRING("a_xiao@jea.ca");
+                break;
+
+            case JEA_PASS:
+                SEND_STRING("J3Apa$$word");
+                break;
             /* // ctr-b + left arrow */
             /* case TMUX_L: */
             /*     register_code(KC_LCTL); */
