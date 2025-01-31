@@ -231,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 break;
 
             case DM_PASS:
-                SEND_STRING("");
+                SEND_STRING("hTxBLBRC$y9EzQB#");
                 break;
 
         }// switch
