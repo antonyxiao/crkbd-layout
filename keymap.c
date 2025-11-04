@@ -22,7 +22,7 @@ Change log:
 
 #include QMK_KEYBOARD_H
 #include <string.h>
-#include <math.h> 
+#include <math.h>
 
 enum crkbd_layers {
     _QWERTY,
@@ -42,13 +42,13 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+      _______, _______,    KC_F,    KC_D,    KC_L, _______,                      _______,    KC_U,    KC_O,    KC_Y, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+      _______,    KC_S,    KC_N,    KC_T,    KC_H,    KC_K,                         KC_X,    KC_A,    KC_E,    KC_I,    KC_C, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
+      _______,    KC_P,    KC_W,    KC_G,    KC_M, _______,                      _______,    KC_Z,    KC_Q,    KC_J,    KC_B, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LGUI, MO(_LOWER), KC_SPC,  RSFT_T(KC_ENT),MO(_RAISE), KC_RALT
+                                          KC_LGUI,  KC_R,MO(_LOWER),  MO(_RAISE), KC_SPC, KC_LCTL
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -79,11 +79,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, MS_WHLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, XXXXXXX,                      KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN1, XXXXXXX,                      MS_LEFT, MS_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, MS_WHLD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, TG(_MOUSE), XXXXXXX,  KC_ENT, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______,  KC_SPC,     KC_ENT, _______,  EE_CLR
                                       //`--------------------------'  `--------------------------'
-  ) 
+  )
 };
 
 
@@ -211,27 +211,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
         switch (keycode) {
 
-            // :w and enter 
+            // :w and enter
             case VIM_W:
                 tap_code(KC_ESC);
                 SEND_STRING(":w");
                 tap_code(KC_ENT);
                 break;
 
-            // :wq and enter 
+            // :wq and enter
             case VIM_WQ:
                 tap_code(KC_ESC);
                 SEND_STRING(":wq");
                 tap_code(KC_ENT);
                 break;
 
-            case AUTO_PRN: 
+            case AUTO_PRN:
                 SEND_STRING("()");
                 tap_code(KC_LEFT);
                 break;
 
             case DM_PASS:
-                SEND_STRING("hTxBLBRC$y9EzQB#");
+                SEND_STRING("qweWE`12`12`12");
                 break;
 
         }// switch
